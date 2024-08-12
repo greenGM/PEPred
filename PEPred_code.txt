@@ -1,0 +1,10 @@
+R
+load(".RData")
+library(tidyverse)
+library(caret)
+unknown <- read.csv("testdata.csv",header = F ,col.names = name)
+unknownS <- predict(preprocessParams, unknown)
+unknownprediction <- data.frame(name=unknown$name,
+                                preclass=predict(fit.C50.Tsmote,unknownS),
+                                preprob=predict(fit.C50.Tsmote,unknownS,type = 'prob' ))
+write.csv(unknownprediction,'PEPred.csv')
